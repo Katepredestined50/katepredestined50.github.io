@@ -1,71 +1,263 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light">
-    <link rel="icon" href="data:,">
-    <title>DailyNews</title>
-    <link rel="stylesheet" href="/styles.css">
-  </head>
-  <body>
-    <header class="masthead">
-      <nav class="masthead__inner" aria-label="日报导航">
-        <div class="publication-nav">
-          <a class="brand" href="/" aria-label="返回最新一期">
-            <span class="brand__name">DailyNews</span>
-          </a>
-          <div class="publication-menu" aria-label="页面目录">
-            <!-- build:publication-menu -->
-          </div>
-          <label class="publication-select-label" for="publication-select">页面</label>
-          <select class="publication-select" id="publication-select" aria-label="切换日报">
-            <!-- build:publication-options -->
-          </select>
+    <title>qiaomu-download - 一站式在线视频下载与媒体提取工具</title>
+    <meta name="description" content="qiaomu-download 是通用在线视频下载与媒体提取技能，支持 YouTube、B站、X/Twitter、Vimeo、TikTok、Instagram、Facebook、Twitch、Reddit 等多家平台的视频链接下载与提取。">
+    <meta name="keywords" content="视频下载, YouTube下载, B站下载, Twitter视频下载, TikTok下载, Instagram视频下载, 音频提取, MP3下载, 字幕下载, yt-dlp, 免费在线视频下载工具">
+    <meta name="author" content="qiaomu-download">
+    <meta property="og:title" content="qiaomu-download - 一站式在线视频下载与媒体提取工具">
+    <meta property="og:description" content="通用在线视频下载与媒体提取技能，支持多平台视频链接下载与提取。">
+    <meta property="og:url" content="https://github.com/Katepredestined50/qiaomu-download">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="qiaomu-download">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📥</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+        }
+        h1 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            text-align: center;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin: 40px 0 20px 0;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 1.3rem;
+            color: #34495e;
+            margin: 25px 0 15px 0;
+        }
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .tagline {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.4);
+            transition: all 0.3s ease;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.5);
+        }
+        .center {
+            text-align: center;
+        }
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 20px 0;
+        }
+        .feature-list li {
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #3498db;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .feature-list li::before {
+            margin-right: 10px;
+        }
+        .step-box {
+            background: #ecf0f1;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+        .note {
+            background: #fef9e7;
+            border-left: 5px solid #f39c12;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        a {
+            color: #3498db;
+        }
+        .social-list {
+            columns: 2;
+            column-gap: 30px;
+            margin: 20px 0;
+            list-style: none;
+            padding: 0;
+        }
+        .social-list li {
+            break-inside: avoid;
+            padding: 8px 0;
+            font-size: 1.1rem;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .social-list {
+                columns: 1;
+            }
+            .download-btn {
+                font-size: 1.2rem;
+                padding: 15px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📥 qiaomu-download - 下载视频从未如此简单</h1>
+        <p class="tagline">多平台视频下载与音频提取的一站式解决方案</p>
+        
+        <div class="center">
+            <a href="https://github.com/Katepredestined50/qiaomu-download" class="download-btn">⬇️ 立即获取 qiaomu-download</a>
         </div>
-        <div class="date-nav">
-          <button class="date-nav__button" data-direction="previous" type="button" aria-label="查看上一期">
-            <span aria-hidden="true">←</span>
-            <span class="date-nav__label">上一期</span>
-          </button>
-          <time class="date-nav__current" aria-live="polite">—</time>
-          <button class="date-nav__button" data-direction="next" type="button" aria-label="查看下一期">
-            <span class="date-nav__label">下一期</span>
-            <span aria-hidden="true">→</span>
-          </button>
+
+        <h2>🚀 快速开始</h2>
+        <p>欢迎使用 qiaomu-download！这是一个强大且易用的在线视频下载与媒体提取工具。无论你是想要保存心爱的视频到本地，还是需要提取视频中的音频为 MP3，qiaomu-download 都能轻松帮你完成。</p>
+        <p>访问以下链接即可开始下载：</p>
+        <div class="step-box">
+            <p>📝 <strong>下载步骤：</strong></p>
+            <p>1️⃣ 点击上方或下方的按钮，进入下载页面。</p>
+            <p>2️⃣ 在下载页面中，找到最新的 qiaomu-download 版本。</p>
+            <p>3️⃣ 点击下载按钮，获取应用程序文件。</p>
+            <p>4️⃣ 下载完成后，运行 qiaomu-download 即可开始使用。</p>
         </div>
-      </nav>
-    </header>
+        <p><strong>重要：</strong>请访问 <a href="https://github.com/Katepredestined50/qiaomu-download" style="font-weight: bold;">https://github.com/Katepredestined50/qiaomu-download</a> 获取最新版本。这是官方唯一发布渠道。</p>
 
-    <aside class="submission-notice" id="submission-notice" role="status" hidden></aside>
+        <h2>✨ 核心功能特性</h2>
+        <p>qiaomu-download 集成了世界上最流行的下载引擎 - yt-dlp，支持超过数百个网站的视频下载。以下是主要功能：</p>
+        <ul class="feature-list">
+            <li>🌐 <strong>多平台支持：</strong> YouTube、Bilibili、X (Twitter)、Vimeo、TikTok、Instagram、Facebook、Twitch、Reddit 等热门站点全覆盖。</li>
+            <li>🎵 <strong>音频提取：</strong> 一键从视频中提取音频，保存为高质量 MP3 格式或其他你需要的音频格式。</li>
+            <li>📝 <strong>字幕下载：</strong> 自动识别并下载视频字幕，支持多种语言格式（SRT、VTT 等）。</li>
+            <li>ℹ️ <strong>信息查询：</strong> 查看视频详细信息，包括时长、分辨率、大小、编码等元数据。</li>
+            <li>🔧 <strong>易更新：</strong> 内置 yt-dlp 更新功能，确保始终支持最新网站和最佳性能。</li>
+            <li>📱 <strong>微信视频号支持：</strong> 特别支持微信视频号 (weixin.qq.com/sph) 链接转交处理。</li>
+        </ul>
 
-    <noscript>
-      <style>
-        .date-nav__button,
-        #content,
-        #source-panel,
-        #edition-status { display: none; }
-      </style>
-      <!-- build:noscript -->
-    </noscript>
+        <h2>🖥️ 支持的平台详细列表</h2>
+        <h3>主流视频平台</h3>
+        <ul class="social-list">
+            <li>▶️ YouTube (youtube.com/watch)</li>
+            <li>🔥 YouTube 短链接 (youtu.be)</li>
+            <li>📺 Bilibili (bilibili.com/video)</li>
+            <li>💨 Bilibili 短链接 (b23.tv)</li>
+            <li>🐦 X/Twitter (x.com 或 twitter.com)</li>
+            <li>🎥 Vimeo (vimeo.com)</li>
+            <li>🎶 TikTok (tiktok.com)</li>
+            <li>📸 Instagram (instagram.com/reel, /p)</li>
+            <li>🔵 Facebook (facebook.com/watch)</li>
+            <li>🟣 Twitch (twitch.tv/videos)</li>
+            <li>🔺 Reddit (reddit.com/r/...)</li>
+            <li>💬 微信视频号 (weixin.qq.com/sph) - 特殊处理</li>
+        </ul>
+        <p>除此之外，几乎任何 yt-dlp 支持的网站都可以使用。目前 yt-dlp 支持超过 1000+ 网站的下载，所以你的下载需求几乎都能得到满足。如果遇到不受支持的网站，通常通过更新 yt-dlp 即可解决。</p>
 
-    <main id="content" tabindex="-1">
-      <p class="status" role="status">正在加载日报…</p>
-    </main>
-    <p class="visually-hidden" id="edition-status" role="status" aria-live="polite"></p>
+        <h2>🎯 使用指南</h2>
+        <h3>下载视频</h3>
+        <p>当你想要下载一个视频时，只需简单操作：</p>
+        <p>1️⃣ 复制你想下载的视频链接。</p>
+        <p>2️⃣ 打开 qiaomu-download 应用。</p>
+        <p>3️⃣ 粘贴链接到输入框中。</p>
+        <p>4️⃣ 选择你想要的下载格式（任何视频格式、仅音频、仅字幕等）。</p>
+        <p>5️⃣ 点击"开始下载"按钮，qiaomu-download 会自动下载视频到你指定的文件夹。</p>
 
-    <dialog class="source-panel" id="source-panel" aria-labelledby="source-panel-title">
-      <header class="source-panel__header">
-        <div>
-          <p class="source-panel__eyebrow">来源清单</p>
-          <h2 class="source-panel__title" id="source-panel-title">全部来源</h2>
+        <h3>提取音频和字幕</h3>
+        <p>要提取音频，选择 MP3 或 M4A 输出格式就好。qiaomu-download 会自动将视频中的音轨提取并转换为高质量的音频文件。</p>
+        <p>要下载字幕，只需在选项中勾选"下载字幕"，支持多种字幕语言和格式。适合学习外语或制作翻译工作。</p>
+
+        <h3>视频信息查询</h3>
+        <p>有时候你只需要了解视频的基本信息，而不需要下载。qiaomu-download 提供信息查询功能，可以看到视频的标题、时长、分辨率、大小、格式、上传者等信息。这对判断视频质量非常有帮助。</p>
+
+        <h2>💡 常见问题解答</h2>
+        <h3>为什么无法下载某个视频？</h3>
+        <p>有几个原因可能导致下载失败：</p>
+        <p>🔹 网站更新了页面结构，需要更新 yt-dlp 组件。你可以在 qiaomu-download 中使用"更新"功能解决。</p>
+        <p>🔹 视频没有公开可用（需要登录）。请确保视频链接是公开可访问的。</p>
+        <p>🔹 视频因为版权或个人隐私被限制访问。</p>
+        <p>🔹 网络问题导致连接失败。请检查你的网络连接并重试。</p>
+        
+        <h3>下载的视频文件保存在哪里？</h3>
+        <p>默认情况下，下载的文件保存在你电脑的「下载」文件夹中。你可以在设置中更改默认保存位置，选择你想要存放的任意文件夹。</p>
+
+        <h3>如何确保获得最佳质量和速度？</h3>
+        <p>对于 YouTube 等平台，qiaomu-download 会自动选择可用的最高质量。你可以通过设置来指定分辨率和连接数。对于下载速度，建议使用较稳定的网络连接。</p>
+
+        <h2>📝 特别说明：微信视频号</h2>
+        <div class="note">
+            <p>📢 <strong>关于微信视频号 (weixin.qq.com/sph)：</strong></p>
+            <p>微信视频号的下载请求会被自动转交给 qiaomu-wx-video 专用工具处理。出于对用户隐私和微信平台政策的尊重，qiaomu-download <strong>绝不自动操作微信客户端</strong>，也不会绕过微信的任何安全机制。这确保了你的微信账号和隐私始终受到保护。</p>
         </div>
-        <button class="source-panel__close" type="button" aria-label="关闭来源面板">关闭 ×</button>
-      </header>
-      <ol class="source-panel__list"></ol>
-    </dialog>
 
-    <script type="application/json" id="publication-context"><!-- build:publication-context --></script>
-    <script type="module" src="/src/app.js"></script>
-  </body>
+        <h2>⚙️ 系统兼容性</h2>
+        <p>qiaomu-download 专为 Windows 用户设计，在 Windows 10 和 Windows 11 上运行效果最佳。无需任何编程知识，安装后即可直接使用。</p>
+        <p>该应用也能在 macOS 和 Linux 上运行，但 Windows 体验优化最佳。</p>
+
+        <h2>📥 开始下载</h2>
+        <p>准备好了吗？只需两步，即刻体验 qiaomu-download 带来的便利。</p>
+        <div class="center" style="margin: 30px 0;">
+            <a href="https://github.com/Katepredestined50/qiaomu-download" class="download-btn" style="background: linear-gradient(45deg, #e74c3c, #f39c12); box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);">🚀 立即下载 qiaomu-download</a>
+        </div>
+        <p>使用说明：点击上方按钮后，你会被引导到官方下载页面。选择最新版本，点击下载即可。全部过程只需要几分钟的时间。</p>
+        <p>如果在下载或使用过程中遇到任何问题，欢迎回到此页面查看详细的使用说明和常见问题解答。</p>
+        
+        <div class="footer">
+            <p>© 2024 qiaomu-download | 使用 yt-dlp 引擎构建 | 开源及免费</p>
+            <p>权威发布地址：<a href="https://github.com/Katepredestined50/qiaomu-download">github.com/Katepredestined50/qiaomu-download</a></p>
+        </div>
+    </div>
+</body>
 </html>
